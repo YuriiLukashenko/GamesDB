@@ -18,9 +18,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
 
         public MainViewModel(IDataService dataService)
         {
-            _dataService = dataService;
-            _dataService.GetData((item) => { WelcomeTitle = item.Title; });
-            
+            _dataService = dataService;            
         }
 
         ////public override void Cleanup()
