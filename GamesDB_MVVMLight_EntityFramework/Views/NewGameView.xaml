@@ -1,0 +1,30 @@
+﻿<Page x:Class="GamesDB_MVVMLight_EntityFramework.View.NewGameView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GamesDB_MVVMLight_EntityFramework.View"
+      xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="400"
+      Title="NewGameView">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <HamburgerMenu:HamburgerMenu Background="Aquamarine" MenuIconColor="DarkBlue" SelectionIndicatorColor="DarkBlue" MenuItemForeground="DarkBlue" HorizontalAlignment="Left" Grid.RowSpan="2">
+            <HamburgerMenu:HamburgerMenuItem x:Name="ValetItem" Icon="Assets/jack.png" Text="Валет" FontSize="30" Selected="ValetItem_Selected"/>
+            <HamburgerMenu:HamburgerMenuItem x:Name="ThousandItem" Icon="Assets/dama.png" Text="Тысяча" FontSize="30" Selected="ThousandItem_OnSelected"/>
+            <HamburgerMenu:HamburgerMenuItem x:Name="DyrtItem" Icon="Assets/ace.png" Text="Дурь" FontSize="30" Selected="DyrtItem_OnSelected"/>
+            <HamburgerMenu:HamburgerMenuItem x:Name="MutItem" Icon="Assets/joker.jpg" Text="Муть" FontSize="30" Selected="MutItem_OnSelected"/>
+            <HamburgerMenu:HamburgerMenuItem x:Name="ResItem" Icon="Assets/back_enl.jpg" Text="Результаты" FontSize="30" Selected ="ResItem_OnSelected"/>
+            <HamburgerMenu:HamburgerMenuItem x:Name="NiceItem" Icon="Assets/nice.jpg" Text="Интересное" FontSize="30" Selected="NiceItem_OnSelected"/>
+        </HamburgerMenu:HamburgerMenu>
+
+        <Frame x:Name ="MyNewGameFrame" Grid.Column="1"></Frame>
+    </Grid>
+</Page>
+ 

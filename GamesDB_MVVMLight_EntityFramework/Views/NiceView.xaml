@@ -1,0 +1,36 @@
+﻿<Page x:Class="GamesDB_MVVMLight_EntityFramework.Views.NiceView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GamesDB_MVVMLight_EntityFramework.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="NiceView"
+      DataContext="{Binding NiceViewModel, Source={StaticResource Locator}}">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DatePicker Grid.Row="0" 
+                    SelectedDate="{Binding GameDate}"
+                    FontSize="26"/>
+        <TextBox Grid.Row="1" 
+                 TextWrapping="Wrap"
+                 FontSize="26"
+                 Text="{Binding Comment}"/>
+        <Button x:Name="ButtonNice"
+                Grid.Row="2"
+                Height="30"
+                Width="300"
+                Background="Green"
+                Content="Сохранить"
+                FontFamily="Comic Sans MS"
+                FontSize="16" 
+                Command="{Binding SetNice}"
+        />
+    </Grid>
+</Page>
