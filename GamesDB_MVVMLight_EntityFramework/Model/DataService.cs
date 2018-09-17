@@ -8,6 +8,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
 {
     public class DataService : IDataService
     {
+        public static int countGames = 0;
 
         #region Valet:_GET,SET,LOAD
 
@@ -145,7 +146,22 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             callback(thousandsOnViews, dt);
         }
 
-        public void LoadThousandData(Action<ObservableCollection<Thousand_OnView>> callback, DateTime dt ) { }
+        public void LoadThousandData(Action<ObservableCollection<Thousand_OnView>> callback, DateTime dt)
+        {
+            ObservableCollection<Thousand> observableThousands = new ObservableCollection<Thousand>();
+            using (var db = new UserContext())
+            {
+                var thousands = db.Thousands;
+                foreach (var thousand in thousands)
+                {
+                    if (thousand.GameDate.Date == dt.Date)
+                    {
+                        observableThousands.Add(thousand);
+                    }
+                }
+            }
+            callback(ParseThousand_To_OnView(observableThousands));
+        }
 
         #endregion
 
@@ -181,10 +197,6 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
         }
 
         #endregion
-
-
-
-
 
         private string[] GetPogonyFromDb()
         {
@@ -226,12 +238,12 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             return pogony;
         }
 
-        
+        #region GameDay:_GET,SET,LOAD
 
         public void GetGameDayData(Action<ObservableCollection<GameDay_OnView>, DateTime> callback)
         {
             //get from db
-            ObservableCollection <GameDay> gameDay = new ObservableCollection<GameDay>();
+            ObservableCollection<GameDay> gameDay = new ObservableCollection<GameDay>();
             Valet valetToday = new Valet();
             Thousand thousandToday = new Thousand();
             Dyr dyrToday = new Dyr();
@@ -276,7 +288,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                     }
                 }
 
-               callback(ParseDb_To_GameDay(Today, valetToday, thousandToday, dyrToday, mutToday), Today);
+                callback(ParseDb_To_GameDay(Today, valetToday, thousandToday, dyrToday, mutToday), Today);
             }
         }
 
@@ -346,6 +358,8 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             }
             MessageBox.Show("Игровой день сохранен.");
         }
+        #endregion
+
 
 
         private ObservableCollection<Valet_OnView> ParseValet_To_OnView(ObservableCollection<Valet> valetsDb)
@@ -391,8 +405,220 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             }
         }
 
-
-        public static int countGames = 0;
+        private ObservableCollection<Thousand_OnView> ParseThousand_To_OnView(ObservableCollection<Thousand> thousandsDb)
+        {
+            var thousandOnViews = NewThousands();
+            if (thousandsDb == null || thousandsDb.Count == 0)
+            {
+                return thousandOnViews;
+            }
+            else
+            {
+                if (thousandsDb.Count >= 1)
+                {
+                    if (thousandsDb[0].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон1 = thousandsDb[0].Whoes == Enums.Whoes.U ? thousandsDb[0].Value.ToString() : "0";
+                    thousandOnViews[1].Кон1 = thousandsDb[0].U.ToString();
+                    thousandOnViews[2].Кон1 = thousandsDb[0].Umarj;
+                    thousandOnViews[3].Кон1 = thousandsDb[0].Ubolt.ToString();
+                    thousandOnViews[4].Кон1 = thousandsDb[0].Urosp.ToString();
+                    thousandOnViews[5].Кон1 = thousandsDb[0].Whoes == Enums.Whoes.W ? thousandsDb[0].Value.ToString() : "0";
+                    thousandOnViews[6].Кон1 = thousandsDb[0].W.ToString();
+                    thousandOnViews[7].Кон1 = thousandsDb[0].Wmarj;
+                    thousandOnViews[8].Кон1 = thousandsDb[0].Wbolt.ToString();
+                    thousandOnViews[9].Кон1 = thousandsDb[0].Wrosp.ToString();
+                    thousandOnViews[10].Кон1 = thousandsDb[0].Whoes == Enums.Whoes.A ? thousandsDb[0].Value.ToString() : "0";
+                    thousandOnViews[11].Кон1 = thousandsDb[0].A.ToString();
+                    thousandOnViews[12].Кон1 = thousandsDb[0].Amarj;
+                    thousandOnViews[13].Кон1 = thousandsDb[0].Abolt.ToString();
+                    thousandOnViews[14].Кон1 = thousandsDb[0].Arosp.ToString();
+                }
+                if (thousandsDb.Count >= 2)
+                {
+                    if (thousandsDb[1].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон2 = thousandsDb[1].Whoes == Enums.Whoes.U ? thousandsDb[1].Value.ToString() : "0";
+                    thousandOnViews[1].Кон2 = thousandsDb[1].U.ToString();
+                    thousandOnViews[2].Кон2 = thousandsDb[1].Umarj;
+                    thousandOnViews[3].Кон2 = thousandsDb[1].Ubolt.ToString();
+                    thousandOnViews[4].Кон2 = thousandsDb[1].Urosp.ToString();
+                    thousandOnViews[5].Кон2 = thousandsDb[1].Whoes == Enums.Whoes.W ? thousandsDb[1].Value.ToString() : "0";
+                    thousandOnViews[6].Кон2 = thousandsDb[1].W.ToString();
+                    thousandOnViews[7].Кон2 = thousandsDb[1].Wmarj;
+                    thousandOnViews[8].Кон2 = thousandsDb[1].Wbolt.ToString();
+                    thousandOnViews[9].Кон2 = thousandsDb[1].Wrosp.ToString();
+                    thousandOnViews[10].Кон2 = thousandsDb[1].Whoes == Enums.Whoes.A ? thousandsDb[1].Value.ToString() : "0";
+                    thousandOnViews[11].Кон2 = thousandsDb[1].A.ToString();
+                    thousandOnViews[12].Кон2 = thousandsDb[1].Amarj;
+                    thousandOnViews[13].Кон2 = thousandsDb[1].Abolt.ToString();
+                    thousandOnViews[14].Кон2 = thousandsDb[1].Arosp.ToString();
+                }
+                if (thousandsDb.Count >= 3)
+                {
+                    if (thousandsDb[2].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон3 = thousandsDb[2].Whoes == Enums.Whoes.U ? thousandsDb[2].Value.ToString() : "0";
+                    thousandOnViews[1].Кон3 = thousandsDb[2].U.ToString();
+                    thousandOnViews[2].Кон3 = thousandsDb[2].Umarj;
+                    thousandOnViews[3].Кон3 = thousandsDb[2].Ubolt.ToString();
+                    thousandOnViews[4].Кон3 = thousandsDb[2].Urosp.ToString();
+                    thousandOnViews[5].Кон3 = thousandsDb[2].Whoes == Enums.Whoes.W ? thousandsDb[2].Value.ToString() : "0";
+                    thousandOnViews[6].Кон3 = thousandsDb[2].W.ToString();
+                    thousandOnViews[7].Кон3 = thousandsDb[2].Wmarj;
+                    thousandOnViews[8].Кон3 = thousandsDb[2].Wbolt.ToString();
+                    thousandOnViews[9].Кон3 = thousandsDb[2].Wrosp.ToString();
+                    thousandOnViews[10].Кон3 = thousandsDb[2].Whoes == Enums.Whoes.A ? thousandsDb[2].Value.ToString() : "0";
+                    thousandOnViews[11].Кон3 = thousandsDb[2].A.ToString();
+                    thousandOnViews[12].Кон3 = thousandsDb[2].Amarj;
+                    thousandOnViews[13].Кон3 = thousandsDb[2].Abolt.ToString();
+                    thousandOnViews[14].Кон3 = thousandsDb[2].Arosp.ToString();
+                }
+                if (thousandsDb.Count >= 4)
+                {
+                    if (thousandsDb[3].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон4 = thousandsDb[3].Whoes == Enums.Whoes.U ? thousandsDb[3].Value.ToString() : "0";
+                    thousandOnViews[1].Кон4 = thousandsDb[3].U.ToString();
+                    thousandOnViews[2].Кон4 = thousandsDb[3].Umarj;
+                    thousandOnViews[3].Кон4 = thousandsDb[3].Ubolt.ToString();
+                    thousandOnViews[4].Кон4 = thousandsDb[3].Urosp.ToString();
+                    thousandOnViews[5].Кон4 = thousandsDb[3].Whoes == Enums.Whoes.W ? thousandsDb[3].Value.ToString() : "0";
+                    thousandOnViews[6].Кон4 = thousandsDb[3].W.ToString();
+                    thousandOnViews[7].Кон4 = thousandsDb[3].Wmarj;
+                    thousandOnViews[8].Кон4 = thousandsDb[3].Wbolt.ToString();
+                    thousandOnViews[9].Кон4 = thousandsDb[3].Wrosp.ToString();
+                    thousandOnViews[10].Кон4 = thousandsDb[3].Whoes == Enums.Whoes.A ? thousandsDb[3].Value.ToString() : "0";
+                    thousandOnViews[11].Кон4 = thousandsDb[3].A.ToString();
+                    thousandOnViews[12].Кон4 = thousandsDb[3].Amarj;
+                    thousandOnViews[13].Кон4 = thousandsDb[3].Abolt.ToString();
+                    thousandOnViews[14].Кон4 = thousandsDb[3].Arosp.ToString();
+                }
+                if (thousandsDb.Count >= 5)
+                {
+                    if (thousandsDb[4].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон5 = thousandsDb[4].Whoes == Enums.Whoes.U ? thousandsDb[4].Value.ToString() : "0";
+                    thousandOnViews[1].Кон5 = thousandsDb[4].U.ToString();
+                    thousandOnViews[2].Кон5 = thousandsDb[4].Umarj;
+                    thousandOnViews[3].Кон5 = thousandsDb[4].Ubolt.ToString();
+                    thousandOnViews[4].Кон5 = thousandsDb[4].Urosp.ToString();
+                    thousandOnViews[5].Кон5 = thousandsDb[4].Whoes == Enums.Whoes.W ? thousandsDb[4].Value.ToString() : "0";
+                    thousandOnViews[6].Кон5 = thousandsDb[4].W.ToString();
+                    thousandOnViews[7].Кон5 = thousandsDb[4].Wmarj;
+                    thousandOnViews[8].Кон5 = thousandsDb[4].Wbolt.ToString();
+                    thousandOnViews[9].Кон5 = thousandsDb[4].Wrosp.ToString();
+                    thousandOnViews[10].Кон5 = thousandsDb[4].Whoes == Enums.Whoes.A ? thousandsDb[4].Value.ToString() : "0";
+                    thousandOnViews[11].Кон5 = thousandsDb[4].A.ToString();
+                    thousandOnViews[12].Кон5 = thousandsDb[4].Amarj;
+                    thousandOnViews[13].Кон5 = thousandsDb[4].Abolt.ToString();
+                    thousandOnViews[14].Кон5 = thousandsDb[4].Arosp.ToString();
+                }
+                if (thousandsDb.Count >= 6)
+                {
+                    if (thousandsDb[5].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон6 = thousandsDb[5].Whoes == Enums.Whoes.U ? thousandsDb[5].Value.ToString() : "0";
+                    thousandOnViews[1].Кон6 = thousandsDb[5].U.ToString();
+                    thousandOnViews[2].Кон6 = thousandsDb[5].Umarj;
+                    thousandOnViews[3].Кон6 = thousandsDb[5].Ubolt.ToString();
+                    thousandOnViews[4].Кон6 = thousandsDb[5].Urosp.ToString();
+                    thousandOnViews[5].Кон6 = thousandsDb[5].Whoes == Enums.Whoes.W ? thousandsDb[5].Value.ToString() : "0";
+                    thousandOnViews[6].Кон6 = thousandsDb[5].W.ToString();
+                    thousandOnViews[7].Кон6 = thousandsDb[5].Wmarj;
+                    thousandOnViews[8].Кон6 = thousandsDb[5].Wbolt.ToString();
+                    thousandOnViews[9].Кон6 = thousandsDb[5].Wrosp.ToString();
+                    thousandOnViews[10].Кон6 = thousandsDb[5].Whoes == Enums.Whoes.A ? thousandsDb[5].Value.ToString() : "0";
+                    thousandOnViews[11].Кон6 = thousandsDb[5].A.ToString();
+                    thousandOnViews[12].Кон6 = thousandsDb[5].Amarj;
+                    thousandOnViews[13].Кон6 = thousandsDb[5].Abolt.ToString();
+                    thousandOnViews[14].Кон6 = thousandsDb[5].Arosp.ToString();
+                }
+                if (thousandsDb.Count >= 7)
+                {
+                    if (thousandsDb[6].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон7 = thousandsDb[6].Whoes == Enums.Whoes.U ? thousandsDb[6].Value.ToString() : "0";
+                    thousandOnViews[1].Кон7 = thousandsDb[6].U.ToString();
+                    thousandOnViews[2].Кон7 = thousandsDb[6].Umarj;
+                    thousandOnViews[3].Кон7 = thousandsDb[6].Ubolt.ToString();
+                    thousandOnViews[4].Кон7 = thousandsDb[6].Urosp.ToString();
+                    thousandOnViews[5].Кон7 = thousandsDb[6].Whoes == Enums.Whoes.W ? thousandsDb[6].Value.ToString() : "0";
+                    thousandOnViews[6].Кон7 = thousandsDb[6].W.ToString();
+                    thousandOnViews[7].Кон7 = thousandsDb[6].Wmarj;
+                    thousandOnViews[8].Кон7 = thousandsDb[6].Wbolt.ToString();
+                    thousandOnViews[9].Кон7 = thousandsDb[6].Wrosp.ToString();
+                    thousandOnViews[10].Кон7 = thousandsDb[6].Whoes == Enums.Whoes.A ? thousandsDb[6].Value.ToString() : "0";
+                    thousandOnViews[11].Кон7 = thousandsDb[6].A.ToString();
+                    thousandOnViews[12].Кон7 = thousandsDb[6].Amarj;
+                    thousandOnViews[13].Кон7 = thousandsDb[6].Abolt.ToString();
+                    thousandOnViews[14].Кон7 = thousandsDb[6].Arosp.ToString();
+                }
+                if(thousandsDb.Count >= 8)
+                {
+                    if (thousandsDb[7].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон8 = thousandsDb[7].Whoes == Enums.Whoes.U ? thousandsDb[7].Value.ToString() : "0";
+                    thousandOnViews[1].Кон8 = thousandsDb[7].U.ToString();
+                    thousandOnViews[2].Кон8 = thousandsDb[7].Umarj;
+                    thousandOnViews[3].Кон8 = thousandsDb[7].Ubolt.ToString();
+                    thousandOnViews[4].Кон8 = thousandsDb[7].Urosp.ToString();
+                    thousandOnViews[5].Кон8 = thousandsDb[7].Whoes == Enums.Whoes.W ? thousandsDb[7].Value.ToString() : "0";
+                    thousandOnViews[6].Кон8 = thousandsDb[7].W.ToString();
+                    thousandOnViews[7].Кон8 = thousandsDb[7].Wmarj;
+                    thousandOnViews[8].Кон8 = thousandsDb[7].Wbolt.ToString();
+                    thousandOnViews[9].Кон8 = thousandsDb[7].Wrosp.ToString();
+                    thousandOnViews[10].Кон8 = thousandsDb[7].Whoes == Enums.Whoes.A ? thousandsDb[7].Value.ToString() : "0";
+                    thousandOnViews[11].Кон8 = thousandsDb[7].A.ToString();
+                    thousandOnViews[12].Кон8 = thousandsDb[7].Amarj;
+                    thousandOnViews[13].Кон8 = thousandsDb[7].Abolt.ToString();
+                    thousandOnViews[14].Кон8 = thousandsDb[7].Arosp.ToString();
+                }
+                if(thousandsDb.Count >= 9)
+                {
+                    if (thousandsDb[8].IdCone == 100)
+                    {
+                        goto Relativation;
+                    }
+                    thousandOnViews[0].Кон9 = thousandsDb[8].Whoes == Enums.Whoes.U ? thousandsDb[8].Value.ToString() : "0";
+                    thousandOnViews[1].Кон9 = thousandsDb[8].U.ToString();
+                    thousandOnViews[2].Кон9 = thousandsDb[8].Umarj;
+                    thousandOnViews[3].Кон9 = thousandsDb[8].Ubolt.ToString();
+                    thousandOnViews[4].Кон9 = thousandsDb[8].Urosp.ToString();
+                    thousandOnViews[5].Кон9 = thousandsDb[8].Whoes == Enums.Whoes.W ? thousandsDb[8].Value.ToString() : "0";
+                    thousandOnViews[6].Кон9 = thousandsDb[8].W.ToString();
+                    thousandOnViews[7].Кон9 = thousandsDb[8].Wmarj;
+                    thousandOnViews[8].Кон9 = thousandsDb[8].Wbolt.ToString();
+                    thousandOnViews[9].Кон9 = thousandsDb[8].Wrosp.ToString();
+                    thousandOnViews[10].Кон9 = thousandsDb[8].Whoes == Enums.Whoes.A ? thousandsDb[8].Value.ToString() : "0";
+                    thousandOnViews[11].Кон9 = thousandsDb[8].A.ToString();
+                    thousandOnViews[12].Кон9 = thousandsDb[8].Amarj;
+                    thousandOnViews[13].Кон9 = thousandsDb[8].Abolt.ToString();
+                    thousandOnViews[14].Кон9 = thousandsDb[8].Arosp.ToString();
+                }
+                Relativation:
+                thousandOnViews[1].Место = thousandsDb.First(n => n.IdCone == 100).U.ToString();
+                thousandOnViews[6].Место = thousandsDb.First(n => n.IdCone == 100).W.ToString();
+                thousandOnViews[11].Место = thousandsDb.First(n => n.IdCone == 100).A.ToString();
+                return thousandOnViews;
+            }
+        }
 
         private ObservableCollection<GameDay_OnView> ParseDb_To_GameDay(DateTime Today, Valet valetToday, Thousand thousandToday, Dyr dyrToday, Mut mutToday)
         {
@@ -582,6 +808,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             return fortest;
         }
 
+        #region OnView_To_X_Parsers
 
         private ObservableCollection<Valet> ParseOnView_To_Valet(ObservableCollection<Valet_OnView> valetOnViews, DateTime dt)
         {
@@ -1159,6 +1386,8 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             };
             return GameDays;
         }
+
+        #endregion
 
         #region StartNewGame
         private ObservableCollection<Valet_OnView> NewValets()

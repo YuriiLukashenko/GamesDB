@@ -20,7 +20,11 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         public DateTime GameDate
         {
             get => _gameDate;
-            set => Set(ref _gameDate, value);
+            set
+            {
+                Set(ref _gameDate, value);
+                _dataService.LoadThousandData((item) => ObservableThousands = item, GameDate);
+            }
         }
 
         private ObservableCollection<Thousand_OnView> _observableThousands;
