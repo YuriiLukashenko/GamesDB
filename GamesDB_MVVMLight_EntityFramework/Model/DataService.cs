@@ -75,7 +75,22 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             MessageBox.Show("Муть сохранена.");
         }
 
-        public void LoadMutData(Action<ObservableCollection<Mut_OnView>> callback, DateTime dt) { }
+        public void LoadMutData(Action<ObservableCollection<Mut_OnView>> callback, DateTime dt)
+        {
+            ObservableCollection<Mut> observableMuts = new ObservableCollection<Mut>();
+            using (var db = new UserContext())
+            {
+                var muts = db.Muts;
+                foreach (var mut in muts)
+                {
+                    if (mut.GameDate.Date == dt.Date)
+                    {
+                        observableMuts.Add(mut);
+                    }
+                }
+            }
+            callback(ParseMyt_To_OnView(observableMuts));
+        }
         #endregion
 
 
@@ -193,7 +208,19 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
 
         public void LoadDyrData(Action<ObservableCollection<Dyr_OnView>> callback, DateTime dt)
         {
-
+            ObservableCollection<Dyr> observableDyrs = new ObservableCollection<Dyr>();
+            using (var db = new UserContext())
+            {
+                var dyrs = db.Dyrs;
+                foreach (var dyr in dyrs)
+                {
+                    if (dyr.GameDate.Date == dt.Date)
+                    {
+                        observableDyrs.Add(dyr);
+                    }
+                }
+            }
+            callback(ParseDyr_To_OnView(observableDyrs));
         }
 
         #endregion
@@ -617,6 +644,91 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 thousandOnViews[6].Место = thousandsDb.First(n => n.IdCone == 100).W.ToString();
                 thousandOnViews[11].Место = thousandsDb.First(n => n.IdCone == 100).A.ToString();
                 return thousandOnViews;
+            }
+        }
+
+        private ObservableCollection<Dyr_OnView> ParseDyr_To_OnView(ObservableCollection<Dyr> dyrsDb)
+        {
+            if (dyrsDb == null || dyrsDb.Count == 0)
+            {
+                var dyrsOnViews = NewDyrs();
+                return dyrsOnViews;
+            }
+            else
+            {
+                var dyrsOnViews = new ObservableCollection<Dyr_OnView>
+                {
+                    new Dyr_OnView()
+                    {
+                        Кто = Enums.Whoes.U,
+                        Кон1 = dyrsDb.First(n => n.IdCone == 1).U.ToString(),
+                        Кон2 = dyrsDb.First(n => n.IdCone == 2).U.ToString(),
+                        Кон3 = dyrsDb.First(n => n.IdCone == 3).U.ToString(),
+                        Всего = dyrsDb.First(n => n.IdCone == 10).U.ToString(),
+                        Место = dyrsDb.First(n => n.IdCone == 100).U.ToString()
+                    },
+                    new Dyr_OnView()
+                    {
+                        Кто = Enums.Whoes.W,
+                        Кон1 = dyrsDb.First(n => n.IdCone == 1).W.ToString(),
+                        Кон2 = dyrsDb.First(n => n.IdCone == 2).W.ToString(),
+                        Кон3 = dyrsDb.First(n => n.IdCone == 3).W.ToString(),
+                        Всего = dyrsDb.First(n => n.IdCone == 10).W.ToString(),
+                        Место = dyrsDb.First(n => n.IdCone == 100).W.ToString()
+                    },
+                    new Dyr_OnView()
+                    {
+                        Кто = Enums.Whoes.A,
+                        Кон1 = dyrsDb.First(n => n.IdCone == 1).A.ToString(),
+                        Кон2 = dyrsDb.First(n => n.IdCone == 2).A.ToString(),
+                        Кон3 = dyrsDb.First(n => n.IdCone == 3).A.ToString(),
+                        Всего = dyrsDb.First(n => n.IdCone == 10).A.ToString(),
+                        Место = dyrsDb.First(n => n.IdCone == 100).A.ToString()
+                    }
+                };
+                return dyrsOnViews;
+            }
+        }
+
+        private ObservableCollection<Mut_OnView> ParseMyt_To_OnView(ObservableCollection<Mut> mutsDb)
+        {
+            if (mutsDb == null || mutsDb.Count == 0)
+            {
+                var mutsOnViews = NewMuts();
+                return mutsOnViews;
+            }
+            else
+            {
+                var mutsOnViews = new ObservableCollection<Mut_OnView>
+                {
+                    new Mut_OnView()
+                    {
+                        Кто = Enums.Whoes.U,
+                        Кон1 = mutsDb.First(n => n.IdCone == 1).U,
+                        Кон2 = mutsDb.First(n => n.IdCone == 2).U,
+                        Кон3 = mutsDb.First(n => n.IdCone == 3).U,
+                        Всего = mutsDb.First(n => n.IdCone == 10).U,
+                        Место = mutsDb.First(n => n.IdCone == 100).U
+                    },
+                    new Mut_OnView()
+                    {
+                        Кто = Enums.Whoes.W,
+                        Кон1 = mutsDb.First(n => n.IdCone == 1).W,
+                        Кон2 = mutsDb.First(n => n.IdCone == 2).W,
+                        Кон3 = mutsDb.First(n => n.IdCone == 3).W,
+                        Всего = mutsDb.First(n => n.IdCone == 10).W,
+                        Место = mutsDb.First(n => n.IdCone == 100).W},
+                    new Mut_OnView()
+                    {
+                        Кто = Enums.Whoes.A,
+                        Кон1 = mutsDb.First(n => n.IdCone == 1).A,
+                        Кон2 = mutsDb.First(n => n.IdCone == 2).A,
+                        Кон3 = mutsDb.First(n => n.IdCone == 3).A,
+                        Всего = mutsDb.First(n => n.IdCone == 10).A,
+                        Место = mutsDb.First(n => n.IdCone == 100).A
+                    }
+                };
+                return mutsOnViews;
             }
         }
 

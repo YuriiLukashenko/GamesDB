@@ -19,7 +19,11 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         public DateTime GameDate
         {
             get => _gameDate;
-            set => Set(ref _gameDate, value);
+            set
+            {
+                Set(ref _gameDate, value);
+                _dataService.LoadDyrData((item) => ObservableDyrs = item, GameDate);
+            } 
         }
 
         private ObservableCollection<Dyr_OnView> _observableDyrs;

@@ -11,16 +11,9 @@ using GamesDB_MVVMLight_EntityFramework.Model;
 
 namespace GamesDB_MVVMLight_EntityFramework.ViewModels
 {
-    public class MutViewModel: ViewModelBase, INotifyPropertyChanged
+    public class MutViewModel: ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private readonly IDataService _dataService;
+       private readonly IDataService _dataService;
 
        public static int Con = 1;
 
@@ -30,8 +23,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get => _gamedate;
             set
             {
-                _gamedate = value;
-                RaisePropertyChanged("GameDate");
+                Set(ref _gamedate, value);
+                _dataService.LoadMutData((item) => ObservableMuts = item, GameDate);
             }
         }
 
@@ -41,8 +34,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get => _umut;
             set
             {
-                _umut = value;
-                RaisePropertyChanged("Umut");
+                Set(ref _umut, value);
             } 
         }
 
@@ -52,8 +44,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get => _wmut;
             set
             {
-                _wmut = value;
-                RaisePropertyChanged("Wmut");
+                Set(ref _wmut, value);
             }
         }
 
@@ -63,8 +54,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get => _amut;
             set
             {
-                _amut = value;
-                RaisePropertyChanged("Amut");
+                Set(ref _amut, value);
             }
         }
 
@@ -73,11 +63,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         public ObservableCollection<Mut_OnView> ObservableMuts
         {
             get => _observableMuts;
-            set
-            {
-                _observableMuts = value;
-                RaisePropertyChanged("ObservableMuts");
-            }
+            set => Set(ref _observableMuts, value);
         }
 
         public RelayCommand _update;
