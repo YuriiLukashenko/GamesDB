@@ -21,11 +21,22 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             set
             {
                 Set(ref _gameDate, value);
-                _dataService.LoadGameDayData((item) =>
+                _dataService.LoadGameDayData((item, played) =>
                 {
                     ObservableGameDay = item;
+                    IsNotPlayed = played;
                 }, GameDate);
             } 
+        }
+
+        private bool _isNotPlayed;
+        public bool IsNotPlayed
+        {
+            get => _isNotPlayed;
+            set
+            {
+                Set(ref _isNotPlayed, value);
+            }
         }
 
         private ObservableCollection<GameDay_OnView> _observableGameDay;
@@ -52,7 +63,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get
             {
                 return _setGameDay ??
-                       (_setGameDay = new RelayCommand(() => _dataService.SetGameDayData(ObservableGameDay, GameDate)));
+                       (_setGameDay = new RelayCommand(() => _dataService.SetGameDayData((played)=>IsNotPlayed = played, ObservableGameDay, GameDate)));
             }
         }
 
@@ -63,9 +74,10 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get
             {
                 return _loadGameData ??
-                       (_loadGameData = new RelayCommand(() => _dataService.LoadGameDayData((item) =>
+                       (_loadGameData = new RelayCommand(() => _dataService.LoadGameDayData((item, played) =>
                            {
                                ObservableGameDay = item;
+                               IsNotPlayed = played;
                            }, GameDate)));
             }
         }

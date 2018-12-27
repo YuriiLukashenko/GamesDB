@@ -20,7 +20,21 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             set
             {
                 Set(ref _gamedate, value);
-                _dataService.LoadNiceData((item) => Comment = item, GameDate);  
+                _dataService.LoadNiceData((item, played) =>
+                {
+                    Comment = item;
+                    IsNotPlayed = played;
+                }, GameDate);  
+            }
+        }
+
+        private bool _isNotPlayed;
+        public bool IsNotPlayed
+        {
+            get => _isNotPlayed;
+            set
+            {
+                Set(ref _isNotPlayed, value);
             }
         }
 
@@ -38,7 +52,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get
             {
                 return _setNice ??
-                       (_setNice = new RelayCommand(() => _dataService.SetNiceData(Comment, GameDate)));
+                       (_setNice = new RelayCommand(() => _dataService.SetNiceData((played)=> IsNotPlayed = played, Comment, GameDate)));
             }
         }
 

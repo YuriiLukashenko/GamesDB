@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 
 namespace GamesDB_MVVMLight_EntityFramework.ViewModels
@@ -22,8 +23,22 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             set
             {
                 Set(ref _gamedate, value);
-                _dataService.LoadValetData((item) => ObservableValets = item, GameDate);
+                _dataService.LoadValetData((item, played) =>
+                {
+                    ObservableValets = item;
+                    IsNotPlayed = played;
+                }, GameDate);
             }
+        }
+
+        private bool _isNotPlayed;
+        public bool IsNotPlayed
+        {
+            get => _isNotPlayed;
+            set
+            {
+                Set(ref _isNotPlayed, value);
+            }             
         }
 
         private ObservableCollection<Valet_OnView> _observableValets;
@@ -45,13 +60,13 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         }
 
         public RelayCommand _setValet;
-
+        
         public RelayCommand SetValet
         {
             get
             {
                 return _setValet ??
-                       (_setValet = new RelayCommand(() => _dataService.SetValetData(ObservableValets, GameDate)));
+                       (_setValet = new RelayCommand(() => _dataService.SetValetData((played) => IsNotPlayed = played, ObservableValets, GameDate)));
             }
         }
 

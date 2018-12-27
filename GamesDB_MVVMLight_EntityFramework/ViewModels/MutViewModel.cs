@@ -24,7 +24,21 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             set
             {
                 Set(ref _gamedate, value);
-                _dataService.LoadMutData((item) => ObservableMuts = item, GameDate);
+                _dataService.LoadMutData((item, played) =>
+                {
+                    ObservableMuts = item;
+                    IsNotPlayed = played;
+                }, GameDate);
+            }
+        }
+
+        private bool _isNotPlayed;
+        public bool IsNotPlayed
+        {
+            get => _isNotPlayed;
+            set
+            {
+                Set(ref _isNotPlayed, value);
             }
         }
 
@@ -76,24 +90,37 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         public void UpdateMuts()
         {
             int Ures = 0;
-            string [] Usplit = Umut.Split('+');
-            foreach (string s in Usplit)
+            if (string.IsNullOrEmpty(Umut)) Ures = 0;
+            else
             {
-                Ures += Convert.ToInt32(s);
+                string[] Usplit = Umut.Split('+');
+                foreach (string s in Usplit)
+                {
+                    Ures += Convert.ToInt32(s);
+                }
             }
 
             int Wres = 0;
-            string[] Wsplit = Wmut.Split('+');
-            foreach (string s in Wsplit)
+            if (string.IsNullOrEmpty(Wmut)) Wres = 0;
+            else
             {
-                Wres += Convert.ToInt32(s);
+                string[] Wsplit = Wmut.Split('+');
+                foreach (string s in Wsplit)
+                {
+                    Wres += Convert.ToInt32(s);
+                }
             }
+            
 
             int Ares = 0;
-            string[] Asplit = Amut.Split('+');
-            foreach (string s in Asplit)
+            if (string.IsNullOrEmpty(Amut)) Ares = 0;
+            else
             {
-                Ares += Convert.ToInt32(s);
+                string[] Asplit = Amut.Split('+');
+                foreach (string s in Asplit)
+                {
+                    Ares += Convert.ToInt32(s);
+                }
             }
 
             if (Con == 1)
@@ -300,7 +327,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             get
             {
                 return _setMut ??
-                       (_setMut = new RelayCommand(() => _dataService.SetMutData(ObservableMuts, GameDate)));
+                       (_setMut = new RelayCommand(() => _dataService.SetMutData((played) => IsNotPlayed = played, ObservableMuts, GameDate)));
             }
         }
 

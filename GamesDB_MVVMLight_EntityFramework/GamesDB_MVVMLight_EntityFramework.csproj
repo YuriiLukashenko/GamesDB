@@ -95,6 +95,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BooleanToSolidColorBrushConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Migrations\201808222305183_Nice.cs" />
     <Compile Include="Migrations\201808222305183_Nice.Designer.cs">

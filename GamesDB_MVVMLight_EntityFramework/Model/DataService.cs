@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using GamesDB_MVVMLight_EntityFramework.Views;
 
 namespace GamesDB_MVVMLight_EntityFramework.Model
@@ -19,7 +20,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             callback(valetOnViews, dt);
         }
 
-        public void SetValetData(ObservableCollection<Valet_OnView> valetOnViews, DateTime dt)
+        public void SetValetData(Action<bool> callback, ObservableCollection<Valet_OnView> valetOnViews, DateTime dt)
         {
             ObservableCollection<Valet> OnValet = ParseOnView_To_Valet(valetOnViews, dt);
             using (var db = new UserContext())
@@ -30,12 +31,14 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 }
                 db.SaveChanges();
             }
+            callback(false);
             MessageBox.Show("Валет сохранен.");
         }
 
-        public void LoadValetData(Action<ObservableCollection<Valet_OnView>> callback, DateTime dt)
+        public void LoadValetData(Action<ObservableCollection<Valet_OnView>, bool> callback, DateTime dt)
         {
             var observableValets = new ObservableCollection<Valet>();
+            var isNotPlayed = false;
             using (var db = new UserContext())
             {
                 var valets = db.Valets;
@@ -44,8 +47,22 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                     if (valet.GameDate.Date == dt.Date)
                         observableValets.Add(valet);
                 }
+
+                if (observableValets.Count == 0)
+                {
+                    isNotPlayed = true;
+                }
+                else
+                {
+                    isNotPlayed = false;
+                }
             }
-            callback(ParseValet_To_OnView(observableValets));
+            callback(ParseValet_To_OnView(observableValets), isNotPlayed);
+        }
+
+        public bool IsValetExist(DateTime dt)
+        {
+            return true;
         }
 
         #endregion
@@ -60,7 +77,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             callback(mutOnViews, dt);
         }
 
-        public void SetMutData(ObservableCollection<Mut_OnView> mutOnViews, DateTime dt)
+        public void SetMutData(Action<bool> callback, ObservableCollection<Mut_OnView> mutOnViews, DateTime dt)
         {
             ObservableCollection<Mut> OnMut = ParseOnView_To_Mut(mutOnViews, dt);
             using (var db = new UserContext())
@@ -72,12 +89,14 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 db.SaveChanges();
             }
 
+            callback(false);
             MessageBox.Show("Муть сохранена.");
         }
 
-        public void LoadMutData(Action<ObservableCollection<Mut_OnView>> callback, DateTime dt)
+        public void LoadMutData(Action<ObservableCollection<Mut_OnView>, bool> callback, DateTime dt)
         {
             ObservableCollection<Mut> observableMuts = new ObservableCollection<Mut>();
+            var isNotPlayed = false;
             using (var db = new UserContext())
             {
                 var muts = db.Muts;
@@ -88,8 +107,17 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                         observableMuts.Add(mut);
                     }
                 }
+
+                if (observableMuts.Count == 0)
+                {
+                    isNotPlayed = true;
+                }
+                else
+                {
+                    isNotPlayed = false;
+                }
             }
-            callback(ParseMyt_To_OnView(observableMuts));
+            callback(ParseMyt_To_OnView(observableMuts), isNotPlayed);
         }
         #endregion
 
@@ -101,7 +129,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             callback("Напишите здесь что-то", DateTime.Today);
         }
 
-        public void SetNiceData(string comment, DateTime dt)
+        public void SetNiceData(Action<bool> callback, string comment, DateTime dt)
         {
             Nice nice = new Nice
             {
@@ -114,12 +142,14 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 db.SaveChanges();
             }
 
+            callback(false);
             MessageBox.Show("Интересные факты сохранены.");
         }
 
-        public void LoadNiceData(Action<string> callback, DateTime dt)
+        public void LoadNiceData(Action<string, bool> callback, DateTime dt)
         {
             string str = String.Empty;
+            var isNotPlayed = false;
             using (var db = new UserContext())
             {
                 var nices = db.Nices;
@@ -130,17 +160,24 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                         str = nice.Comment;
                     }
                 }
+                if (string.IsNullOrEmpty(str))
+                {
+                    isNotPlayed = true;
+                }
+                else
+                {
+                    isNotPlayed = false;
+                }
             }
-            callback(str);
+            callback(str, isNotPlayed);
         }
         #endregion
 
 
         #region Thousand_GET,SET,LOAD
 
-        public void SetThousandData(ObservableCollection<Thousand_OnView> thousandOnViews, DateTime dt, int Con)
+        public void SetThousandData(Action<bool> callback, ObservableCollection<Thousand_OnView> thousandOnViews, DateTime dt, int Con)
         {
-
             ObservableCollection<Thousand> OnThousand = ParseOnView_To_Thousand(thousandOnViews, dt, Con);
             using (var db = new UserContext())
             {
@@ -151,6 +188,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 db.SaveChanges();
             }
 
+            callback(false);
             MessageBox.Show("Тысяча сохранена.");
         }
 
@@ -161,9 +199,10 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             callback(thousandsOnViews, dt);
         }
 
-        public void LoadThousandData(Action<ObservableCollection<Thousand_OnView>> callback, DateTime dt)
+        public void LoadThousandData(Action<ObservableCollection<Thousand_OnView>, bool> callback, DateTime dt)
         {
             ObservableCollection<Thousand> observableThousands = new ObservableCollection<Thousand>();
+            var isNotPlayed = false;
             using (var db = new UserContext())
             {
                 var thousands = db.Thousands;
@@ -174,8 +213,17 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                         observableThousands.Add(thousand);
                     }
                 }
+
+                if (observableThousands.Count == 0)
+                {
+                    isNotPlayed = true;
+                }
+                else
+                {
+                    isNotPlayed = false;
+                }
             }
-            callback(ParseThousand_To_OnView(observableThousands));
+            callback(ParseThousand_To_OnView(observableThousands), isNotPlayed);
         }
 
         #endregion
@@ -192,7 +240,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             callback(dyrsOnViews, dt, pogony);
         }
 
-        public void SetDyrData(ObservableCollection<Dyr_OnView> dyrOnViews, DateTime dt)
+        public void SetDyrData(Action<bool> callback, ObservableCollection<Dyr_OnView> dyrOnViews, DateTime dt)
         {
             ObservableCollection<Dyr> OnDyr = ParseOnView_To_Dyr(dyrOnViews, dt);
             using (var db = new UserContext())
@@ -203,15 +251,19 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 }
                 db.SaveChanges();
             }
+
+            callback(false);
             MessageBox.Show("Дурь сохранена.");
         }
 
-        public void LoadDyrData(Action<ObservableCollection<Dyr_OnView>> callback, DateTime dt)
+        public void LoadDyrData(Action<ObservableCollection<Dyr_OnView>, bool> callback, DateTime dt)
         {
             ObservableCollection<Dyr> observableDyrs = new ObservableCollection<Dyr>();
+            var isNotPlayed = false;
             using (var db = new UserContext())
             {
                 var dyrs = db.Dyrs;
+                
                 foreach (var dyr in dyrs)
                 {
                     if (dyr.GameDate.Date == dt.Date)
@@ -219,8 +271,17 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                         observableDyrs.Add(dyr);
                     }
                 }
+
+                if (observableDyrs.Count == 0)
+                {
+                    isNotPlayed = true;
+                }
+                else
+                {
+                    isNotPlayed = false;
+                }
             }
-            callback(ParseDyr_To_OnView(observableDyrs));
+            callback(ParseDyr_To_OnView(observableDyrs), isNotPlayed);
         }
 
         #endregion
@@ -259,6 +320,16 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                     case 8: pogony[i] = "Король"; break;
                     case 9: pogony[i] = "Туз"; break;
                     case 10: pogony[i] = "Джокер"; break;
+                    case 11: pogony[i] = "Туз--"; break;
+                    case 12: pogony[i] = "Король--"; break;
+                    case 13: pogony[i] = "Дама--"; break;
+                    case 14: pogony[i] = "Валет--"; break;
+                    case 15: pogony[i] = "Десятка--"; break;
+                    case 16: pogony[i] = "Девятка--"; break;
+                    case 17: pogony[i] = "Восьмерка--"; break;
+                    case 18: pogony[i] = "Семерка--"; break;
+                    case 19: pogony[i] = "Шестерка--"; break;
+                    case 20: pogony[i] = "Фулл"; break;
                 }
             }
 
@@ -319,9 +390,10 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             }
         }
 
-        public void LoadGameDayData(Action<ObservableCollection<GameDay_OnView>> callback, DateTime dt)
+        public void LoadGameDayData(Action<ObservableCollection<GameDay_OnView>, bool> callback, DateTime dt)
         {
             ObservableCollection<GameDay> gameDay = new ObservableCollection<GameDay>();
+            var isNotPlayed = false;
             Valet valetToday = new Valet();
             Thousand thousandToday = new Thousand();
             Dyr dyrToday = new Dyr();
@@ -368,11 +440,22 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                         break;
                     }
                 }
+
+                var gamedays = db.GameDays;
+                foreach (var day in gamedays)
+                {
+                    if (day.GameDate.Date == Today)
+                    {
+                        isNotPlayed = false;
+                        break;
+                    }
+                    isNotPlayed = true;
+                }
             }
-            callback(ParseDb_To_GameDay(Today, valetToday, thousandToday, dyrToday, mutToday));
+            callback(ParseDb_To_GameDay(Today, valetToday, thousandToday, dyrToday, mutToday), isNotPlayed);
         }
 
-        public void SetGameDayData(ObservableCollection<GameDay_OnView> gameDayOnViews, DateTime dt)
+        public void SetGameDayData(Action<bool> callback, ObservableCollection<GameDay_OnView> gameDayOnViews, DateTime dt)
         {
             ObservableCollection<GameDay> OnGameDay = ParseOnView_To_GameDay(gameDayOnViews, dt);
             using (var db = new UserContext())
@@ -383,6 +466,8 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 }
                 db.SaveChanges();
             }
+
+            callback(false);
             MessageBox.Show("Игровой день сохранен.");
         }
         #endregion

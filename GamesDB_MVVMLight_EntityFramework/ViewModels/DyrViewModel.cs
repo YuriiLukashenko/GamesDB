@@ -22,8 +22,22 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             set
             {
                 Set(ref _gameDate, value);
-                _dataService.LoadDyrData((item) => ObservableDyrs = item, GameDate);
+                _dataService.LoadDyrData((item, played) =>
+                {
+                    ObservableDyrs = item;
+                    IsNotPlayed = played;
+                }, GameDate);
             } 
+        }
+
+        private bool _isNotPlayed;
+        public bool IsNotPlayed
+        {
+            get => _isNotPlayed;
+            set
+            {
+                Set(ref _isNotPlayed, value);
+            }
         }
 
         private ObservableCollection<Dyr_OnView> _observableDyrs;
@@ -94,7 +108,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         public RelayCommand _setDyr;
         public RelayCommand SetDyr
         {
-            get { return _setDyr ?? (_setDyr = new RelayCommand(() => _dataService.SetDyrData(ObservableDyrs, GameDate))); }
+            get { return _setDyr ?? (_setDyr = new RelayCommand(() => _dataService.SetDyrData((played) => IsNotPlayed = played, ObservableDyrs, GameDate))); }
         }
 
         public RelayCommand _update;

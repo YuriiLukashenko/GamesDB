@@ -4,10 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GamesDB_MVVMLight_EntityFramework.Views"
+      xmlns:valueConverters="clr-namespace:GamesDB_MVVMLight_EntityFramework.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DyrView"
       DataContext="{Binding DyrViewModel, Source={StaticResource Locator}}">
+
+    <Page.Resources>
+        <valueConverters:BooleanToSolidColorBrushConverter 
+            x:Key="BooleanToSolidColorBrushConverter"/>
+    </Page.Resources>
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -73,14 +79,23 @@
                   RowHeight="40"
                   FontFamily="Comic Sans MS"
                   FontSize="20"/>
-        <Button Grid.Row="3"
-                Height="30"
-                Width="300"
-                Background="Green"
-                Content="Сохранить"
-                FontFamily="Comic Sans MS"
-                FontSize="16" 
-                Command="{Binding SetDyr}"
-        />
+        <Grid Grid.Row="3" HorizontalAlignment="Center">
+            <Rectangle x:Name="IsSavedRectangle"
+                       Height="30"
+                       Width="10000"
+                       HorizontalAlignment="Stretch"
+                       Fill="{Binding IsNotPlayed, 
+                             Converter={StaticResource BooleanToSolidColorBrushConverter}}"
+            />
+            <Button Grid.Row="3"
+                    IsEnabled="{Binding IsNotPlayed}"    
+                    Height="30"
+                    Width="300"
+                    Background="Green"
+                    Content="Сохранить"
+                    FontFamily="Comic Sans MS"
+                    FontSize="16"
+                    Command="{Binding SetDyr}" />
+        </Grid>
     </Grid>
 </Page>

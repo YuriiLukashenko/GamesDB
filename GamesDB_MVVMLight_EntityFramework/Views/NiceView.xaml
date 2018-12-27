@@ -4,10 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GamesDB_MVVMLight_EntityFramework.Views"
+      xmlns:valueConverters="clr-namespace:GamesDB_MVVMLight_EntityFramework.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="NiceView"
       DataContext="{Binding NiceViewModel, Source={StaticResource Locator}}">
+
+    <Page.Resources>
+        <valueConverters:BooleanToSolidColorBrushConverter 
+            x:Key="BooleanToSolidColorBrushConverter"/>
+    </Page.Resources>
 
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -22,15 +28,24 @@
                  TextWrapping="Wrap"
                  FontSize="26"
                  Text="{Binding Comment}"/>
-        <Button x:Name="ButtonNice"
-                Grid.Row="2"
-                Height="30"
-                Width="300"
-                Background="Green"
-                Content="Сохранить"
-                FontFamily="Comic Sans MS"
-                FontSize="16" 
-                Command="{Binding SetNice}"
-        />
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
+            <Rectangle x:Name="IsSavedRectangle"
+                       Height="30"
+                       Width="10000"
+                       HorizontalAlignment="Stretch"
+                       Fill="{Binding IsNotPlayed, 
+                             Converter={StaticResource BooleanToSolidColorBrushConverter}}"
+            />
+            <Button x:Name="ButtonNice"
+                    IsEnabled="{Binding IsNotPlayed}"
+                    Grid.Row="2"
+                    Height="30"
+                    Width="300"
+                    Background="Green"
+                    Content="Сохранить"
+                    FontFamily="Comic Sans MS"
+                    FontSize="16"
+                    Command="{Binding SetNice}" />
+        </Grid>
     </Grid>
 </Page>

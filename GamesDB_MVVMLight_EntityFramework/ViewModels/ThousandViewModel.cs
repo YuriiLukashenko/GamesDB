@@ -23,7 +23,21 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             set
             {
                 Set(ref _gameDate, value);
-                _dataService.LoadThousandData((item) => ObservableThousands = item, GameDate);
+                _dataService.LoadThousandData((item, played) =>
+                {
+                    ObservableThousands = item;
+                    IsNotPlayed = played;
+                }, GameDate);
+            }
+        }
+
+        private bool _isNotPlayed;
+        public bool IsNotPlayed
+        {
+            get => _isNotPlayed;
+            set
+            {
+                Set(ref _isNotPlayed, value);
             }
         }
 
@@ -39,7 +53,12 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         {
             get
             {
-                return _setThousand ?? (_setThousand = new RelayCommand(() => _dataService.SetThousandData(ObservableThousands, GameDate, Con)));
+                return _setThousand ?? (_setThousand = new RelayCommand(() => 
+                           _dataService.SetThousandData(
+                               (played) => IsNotPlayed = played,
+                               ObservableThousands,
+                               GameDate,
+                               Con)));
             }
         }
 
