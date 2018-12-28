@@ -622,8 +622,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон1)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон1)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон2
                     ObservableThousands[0].Кон2 = Ustav;
                     ObservableThousands[1].Кон2 = U_full;
@@ -648,8 +648,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон2)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон2)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон3
                     ObservableThousands[0].Кон3 = Ustav;
                     ObservableThousands[1].Кон3 = U_full;
@@ -674,8 +674,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон3)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон3)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон4
                     ObservableThousands[0].Кон4 = Ustav;
                     ObservableThousands[1].Кон4 = U_full;
@@ -700,8 +700,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон4)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон4)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон5
                     ObservableThousands[0].Кон5 = Ustav;
                     ObservableThousands[1].Кон5 = U_full;
@@ -726,8 +726,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон5)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон5)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон6
                     ObservableThousands[0].Кон6 = Ustav;
                     ObservableThousands[1].Кон6 = U_full;
@@ -752,8 +752,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон6)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон6)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон7
                     ObservableThousands[0].Кон7 = Ustav;
                     ObservableThousands[1].Кон7 = U_full;
@@ -778,8 +778,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон7)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон7)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон8
                     ObservableThousands[0].Кон8 = Ustav;
                     ObservableThousands[1].Кон8 = U_full;
@@ -804,8 +804,8 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
                     W_full = (Convert.ToInt32(Wres) + Convert.ToInt32(ObservableThousands[6].Кон8)).ToString();
                     A_full = (Convert.ToInt32(Ares) + Convert.ToInt32(ObservableThousands[11].Кон8)).ToString();
                     if (Convert.ToInt32(U_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(W_full) == 555) { U_full = "0"; }
-                    if (Convert.ToInt32(A_full) == 555) { U_full = "0"; }
+                    if (Convert.ToInt32(W_full) == 555) { W_full = "0"; }
+                    if (Convert.ToInt32(A_full) == 555) { A_full = "0"; }
                     #region Вынужденный говнокод Кон9
                     ObservableThousands[0].Кон9 = Ustav;
                     ObservableThousands[1].Кон9 = U_full;
@@ -862,6 +862,39 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             ObservableThousands[14].Место = "";
             #endregion
             ClearAll();
+        }
+
+        private RelayCommand _clean;
+
+        public RelayCommand Clean
+        {
+            get { return _clean ?? (_clean = new RelayCommand(CleanAllToNewGame)); }
+        }
+
+        public void CleanAllToNewGame()
+        {
+            ClearAll();
+            U_full = "";
+            W_full = "";
+            A_full = "";
+
+            Con = 0;
+            ObservableThousands.Clear();
+            ObservableThousands = _dataService.NewThousands();
+            U_bolt_count = 0;
+            U_bolt_color = new SolidColorBrush(Colors.GreenYellow);
+            U_rosp_count = 0;
+            U_rosp_color = new SolidColorBrush(Colors.GreenYellow);
+
+            W_bolt_count = 0;
+            W_bolt_color = new SolidColorBrush(Colors.GreenYellow);
+            W_rosp_count = 0;
+            W_rosp_color = new SolidColorBrush(Colors.GreenYellow);
+
+            A_bolt_count = 0;
+            A_bolt_color = new SolidColorBrush(Colors.GreenYellow);
+            A_rosp_count = 0;
+            A_rosp_color = new SolidColorBrush(Colors.GreenYellow);
         }
 
         private string[] T_relativation(int u, int v, int a)

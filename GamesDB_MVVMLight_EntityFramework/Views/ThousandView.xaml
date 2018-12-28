@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:GamesDB_MVVMLight_EntityFramework.Views"
       xmlns:valueConverters="clr-namespace:GamesDB_MVVMLight_EntityFramework.Converters"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1000"
       Title="ThousandView"
       DataContext="{Binding ThousandViewModel, Source={StaticResource Locator}}">
 
@@ -186,6 +186,16 @@
                     Content="Завершить"
                     Command="{Binding Finish}"
                     Click="Stop_OnClick"/>
+            <Button x:Name="Clean"
+                    VerticalAlignment="Stretch"
+                    Width="100"
+                    Background="Teal"
+                    Foreground="AliceBlue"
+                    FontFamily="Comic Sans MS"
+                    FontSize="14" 
+                    Content="Очистить"
+                    Command="{Binding Clean}"
+                    />
         </StackPanel>
 
         <DataGrid Grid.Row="2"

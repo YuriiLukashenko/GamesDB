@@ -1607,7 +1607,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             return valetOnViews;
         }
 
-        private ObservableCollection<Mut_OnView> NewMuts()
+        public ObservableCollection<Mut_OnView> NewMuts()
         {
             var mutOnViews = new ObservableCollection<Mut_OnView>
             {
@@ -1618,7 +1618,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             return mutOnViews;
         }
 
-        private ObservableCollection<Thousand_OnView> NewThousands()
+        public ObservableCollection<Thousand_OnView> NewThousands()
         {
             var thousandOnViews = new ObservableCollection<Thousand_OnView>
             {

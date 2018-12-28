@@ -72,6 +72,16 @@
                         Command="{Binding Finish}"
                         Click="Test_OnClick"
                 />
+                <Button x:Name="Clean"
+                        VerticalAlignment="Stretch"
+                        Width="100"
+                        Background="Teal"
+                        Foreground="AliceBlue"
+                        FontFamily="Comic Sans MS"
+                        FontSize="14" 
+                        Content="Очистить"
+                        Command="{Binding Clean}"
+                />
             </StackPanel>
 
         </Grid>

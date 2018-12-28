@@ -16,7 +16,10 @@ namespace GamesDB_MVVMLight_EntityFramework.Design
         public void GetThousandData(Action<ObservableCollection<Thousand_OnView>, DateTime> callback) { }
         public void SetThousandData(Action<bool> callback, ObservableCollection<Thousand_OnView> thousandOnViews, DateTime dt, int Con) { }
         public void LoadThousandData(Action<ObservableCollection<Thousand_OnView>, bool> callback, DateTime dt) { }
-
+        public ObservableCollection<Thousand_OnView> NewThousands()
+        {
+            return null;
+        }
 
         public void GetDyrData(Action<ObservableCollection<Dyr_OnView>, DateTime, string[]> callback) { }
         public void SetDyrData(Action<bool> callback, ObservableCollection<Dyr_OnView> dyrOnViews, DateTime dt) { }
@@ -27,6 +30,10 @@ namespace GamesDB_MVVMLight_EntityFramework.Design
         public void SetMutData(Action<bool> callback, ObservableCollection<Mut_OnView> mutOnViews, DateTime dt) { }
         public void LoadMutData(Action<ObservableCollection<Mut_OnView>, bool> callback, DateTime dt) { }
 
+        public ObservableCollection<Mut_OnView> NewMuts()
+        {
+            return null;
+        }
 
         public void GetGameDayData(Action<ObservableCollection<GameDay_OnView>, DateTime> callback) { }
         public void SetGameDayData(Action<bool> callback, ObservableCollection<GameDay_OnView> gameDayOnViews, DateTime dt) { }

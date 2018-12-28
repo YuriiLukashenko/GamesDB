@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GamesDB_MVVMLight_EntityFramework.Model;
@@ -178,6 +179,19 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             }
         }
 
+        private RelayCommand _clean;
+
+        public RelayCommand Clean
+        {
+            get { return _clean ?? (_clean = new RelayCommand(CleanAllToNewGame)); }
+        }
+
+        public void CleanAllToNewGame()
+        {
+            Con = 1;
+            ObservableMuts.Clear();
+            ObservableMuts = _dataService.NewMuts();
+        }
 
         public int[] M_relativation(int u, int v, int a) //супер говнокод для перевода из абсолютного в относительный
         {

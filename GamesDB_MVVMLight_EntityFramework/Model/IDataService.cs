@@ -17,7 +17,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
         void GetThousandData(Action<ObservableCollection<Thousand_OnView>, DateTime> callback);
         void SetThousandData(Action<bool> callback, ObservableCollection<Thousand_OnView> thousandOnViews, DateTime dt, int Con);
         void LoadThousandData(Action<ObservableCollection<Thousand_OnView>, bool> callback, DateTime dt);
-
+        ObservableCollection<Thousand_OnView> NewThousands();
 
         void GetDyrData(Action<ObservableCollection<Dyr_OnView>, DateTime, string[]> callback);
         void SetDyrData(Action<bool> callback, ObservableCollection<Dyr_OnView> dyrOnViews, DateTime dt);
@@ -27,6 +27,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
         void GetMutData(Action<ObservableCollection<Mut_OnView>, DateTime> callback);
         void SetMutData(Action<bool> callback, ObservableCollection<Mut_OnView> mutOnViews, DateTime dt);
         void LoadMutData(Action<ObservableCollection<Mut_OnView>, bool> callback, DateTime dt);
+        ObservableCollection<Mut_OnView> NewMuts();
         
 
         void GetGameDayData(Action<ObservableCollection<GameDay_OnView>, DateTime> callback);
