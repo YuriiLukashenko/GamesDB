@@ -235,7 +235,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
         {
             var dyrsOnViews = NewDyrs();
             DateTime dt = DateTime.Now;
-            string[] pogony = GetPogonyFromDb();
+            string[] pogony = GetPogonyFromDb(dt);
 
             callback(dyrsOnViews, dt, pogony);
         }
@@ -256,14 +256,14 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             MessageBox.Show("Дурь сохранена.");
         }
 
-        public void LoadDyrData(Action<ObservableCollection<Dyr_OnView>, bool> callback, DateTime dt)
+        public void LoadDyrData(Action<ObservableCollection<Dyr_OnView>, bool, string[]> callback, DateTime dt)
         {
             ObservableCollection<Dyr> observableDyrs = new ObservableCollection<Dyr>();
             var isNotPlayed = false;
+            string[] pogony = GetPogonyFromDb(dt);
             using (var db = new UserContext())
             {
                 var dyrs = db.Dyrs;
-                
                 foreach (var dyr in dyrs)
                 {
                     if (dyr.GameDate.Date == dt.Date)
@@ -281,12 +281,13 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                     isNotPlayed = false;
                 }
             }
-            callback(ParseDyr_To_OnView(observableDyrs), isNotPlayed);
+
+            callback(ParseDyr_To_OnView(observableDyrs), isNotPlayed, pogony);
         }
 
         #endregion
 
-        private string[] GetPogonyFromDb()
+        private string[] GetPogonyFromDb(DateTime dt)
         {
             string[] pogony = new string[6];
             int[] pered = new int [6];
@@ -296,12 +297,19 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
                 var dyrs = db.Dyrs;
                 foreach (var dyr in dyrs)
                 {
-                    if (dyr.UW == 1) pered[0]++;
-                    if (dyr.UA == 1) pered[1]++;
-                    if (dyr.WU == 1) pered[2]++;
-                    if (dyr.WA == 1) pered[3]++;
-                    if (dyr.AU == 1) pered[4]++;
-                    if (dyr.AW == 1) pered[5]++;
+                    if (dyr.GameDate.Year == dt.Year)
+                    {
+                        // потому что ИдКон 10 и 100 в базе - это для результатов
+                        if (dyr.IdCone < 10)
+                        {
+                            if (dyr.UW == 1) pered[0]++;
+                            else if (dyr.UA == 1) pered[1]++;
+                            else if (dyr.WU == 1) pered[2]++;
+                            else if (dyr.WA == 1) pered[3]++;
+                            else if (dyr.AU == 1) pered[4]++;
+                            else if (dyr.AW == 1) pered[5]++;
+                        }
+                    }  
                 }
             }
 

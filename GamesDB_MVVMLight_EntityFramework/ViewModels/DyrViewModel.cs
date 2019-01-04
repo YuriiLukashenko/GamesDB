@@ -22,10 +22,16 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             set
             {
                 Set(ref _gameDate, value);
-                _dataService.LoadDyrData((item, played) =>
+                _dataService.LoadDyrData((item, played, pogony) =>
                 {
                     ObservableDyrs = item;
                     IsNotPlayed = played;
+                    UW = pogony[0];
+                    UA = pogony[1];
+                    WU = pogony[2];
+                    WA = pogony[3];
+                    AU = pogony[4];
+                    AW = pogony[5];
                 }, GameDate);
             } 
         }

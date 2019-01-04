@@ -23,7 +23,7 @@ namespace GamesDB_MVVMLight_EntityFramework.Design
 
         public void GetDyrData(Action<ObservableCollection<Dyr_OnView>, DateTime, string[]> callback) { }
         public void SetDyrData(Action<bool> callback, ObservableCollection<Dyr_OnView> dyrOnViews, DateTime dt) { }
-        public void LoadDyrData(Action<ObservableCollection<Dyr_OnView>, bool> callback, DateTime dt) { }
+        public void LoadDyrData(Action<ObservableCollection<Dyr_OnView>, bool, string[]> callback, DateTime dt) { }
 
 
         public void GetMutData(Action<ObservableCollection<Mut_OnView>, DateTime> callback) { }
