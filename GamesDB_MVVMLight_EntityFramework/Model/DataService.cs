@@ -1618,6 +1618,17 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
             return mutOnViews;
         }
 
+        public ObservableCollection<AllStatistic_OnView> NewAllStatistic()
+        {
+            var AllStatistic_OnView = new ObservableCollection<AllStatistic_OnView>
+            {
+                new AllStatistic_OnView() { Кто = Enums.Whoes.U },
+                new AllStatistic_OnView() { Кто = Enums.Whoes.W },
+                new AllStatistic_OnView() { Кто = Enums.Whoes.A },
+            };
+            return AllStatistic_OnView;
+        }
+
         public ObservableCollection<Thousand_OnView> NewThousands()
         {
             var thousandOnViews = new ObservableCollection<Thousand_OnView>
@@ -1653,5 +1664,71 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
         }
 
         #endregion
+
+        public void GetAbsoluteValues(Action<ObservableCollection<AllStatistic_OnView>> callback, DateTime from, DateTime to)
+        {
+            var absoluteValues = NewAllStatistic();
+            int Uall = 0, Wall = 0, Aall = 0, countGames = 0;
+            using (var db = new UserContext())
+            {
+                var gamedays = db.GameDays;
+                foreach (var day in gamedays)
+                {
+                    if (day.GameDate >= from && day.GameDate <= to)
+                    {
+                        Uall += day.Uall;
+                        Wall += day.Wall;
+                        Aall += day.Aall;
+                        countGames += day.CountGames;
+                    }    
+                }
+                
+                absoluteValues[0].Сумма = Uall;
+                absoluteValues[0].Сыграно = countGames;
+                absoluteValues[0].Результат = Math.Round(((double)Uall / (double)countGames), 4);
+
+                absoluteValues[1].Сумма = Wall;
+                absoluteValues[1].Сыграно = countGames;
+                absoluteValues[1].Результат = Math.Round(((double) Wall / (double) countGames), 4);
+
+                absoluteValues[2].Сумма = Aall;
+                absoluteValues[2].Сыграно = countGames;
+                absoluteValues[2].Результат = Math.Round(((double) Aall / (double) countGames), 4);
+            }
+            callback(absoluteValues);
+        }
+
+        public void GetRelativeValues(Action<ObservableCollection<AllStatistic_OnView>> callback, DateTime from, DateTime to)
+        {
+            var relativeValues = NewAllStatistic();
+            int Urel = 0, Wrel = 0, Arel = 0,  countItems = 0;
+            using (var db = new UserContext())
+            {
+                var gamedays = db.GameDays;
+                foreach (var day in gamedays)
+                {
+                    if (day.GameDate >= from && day.GameDate <= to)
+                    {
+                        Urel += day.Urel;
+                        Wrel += day.Wrel;
+                        Arel += day.Arel;
+                        countItems++;
+                    }
+                }
+
+                relativeValues[0].Сумма = Urel;
+                relativeValues[0].Сыграно = countItems;
+                relativeValues[0].Результат = Math.Round(((double)Urel / (double)countItems), 4);
+
+                relativeValues[1].Сумма = Wrel;
+                relativeValues[1].Сыграно = countItems;
+                relativeValues[1].Результат = Math.Round(((double)Wrel / (double)countItems), 4);
+
+                relativeValues[2].Сумма = Arel;
+                relativeValues[2].Сыграно = countItems;
+                relativeValues[2].Результат = Math.Round(((double)Arel / (double)countItems), 4);
+            }
+            callback(relativeValues);
+        }
     }
 }

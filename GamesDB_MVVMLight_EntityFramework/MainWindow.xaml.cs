@@ -24,5 +24,10 @@ namespace GamesDB_MVVMLight_EntityFramework
             ButtonMenu2.Margin = new Thickness(310, 0, 0, 0);
             MyMainFrame.Navigate(new Uri("Views/NewGameView.xaml", UriKind.Relative));
         }
+
+        private void ButtonMenu2_OnClick(object sender, RoutedEventArgs e)
+        {
+            MyMainFrame.Navigate(new Uri("Views/StatisticPage.xaml", UriKind.Relative));
+        }
     }
 }

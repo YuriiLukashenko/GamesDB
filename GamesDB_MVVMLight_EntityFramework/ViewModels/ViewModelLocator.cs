@@ -46,6 +46,7 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
             SimpleIoc.Default.Register<ThousandViewModel>();
             SimpleIoc.Default.Register<DyrViewModel>();
             SimpleIoc.Default.Register<GameDayViewModel>();
+            SimpleIoc.Default.Register<StatisticPageViewModel>();
         }
 
         /// <summary>
@@ -69,6 +70,9 @@ namespace GamesDB_MVVMLight_EntityFramework.ViewModels
         public DyrViewModel DyrViewModel => ServiceLocator.Current.GetInstance<DyrViewModel>();
 
         public GameDayViewModel GameDayViewModel => ServiceLocator.Current.GetInstance<GameDayViewModel>();
+
+        public StatisticPageViewModel StatisticPageViewModel =>
+            ServiceLocator.Current.GetInstance<StatisticPageViewModel>();
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>

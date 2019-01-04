@@ -103,6 +103,7 @@
       <DependentUpon>201808222305183_Nice.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\AllStatistic_OnView.cs" />
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Model\DataService.cs" />
     <Compile Include="Model\Dyr.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MutViewModel.cs" />
     <Compile Include="ViewModels\NiceViewModel.cs" />
+    <Compile Include="ViewModels\StatisticPageViewModel.cs" />
     <Compile Include="ViewModels\ThousandViewModel.cs" />
     <Compile Include="ViewModels\ValetViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -141,6 +143,9 @@
     </Compile>
     <Compile Include="Views\NiceView.xaml.cs">
       <DependentUpon>NiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatisticPage.xaml.cs">
+      <DependentUpon>StatisticPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ThousandView.xaml.cs">
       <DependentUpon>ThousandView.xaml</DependentUpon>
@@ -181,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatisticPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

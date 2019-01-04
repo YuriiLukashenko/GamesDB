@@ -1,0 +1,72 @@
+﻿<Page x:Class="GamesDB_MVVMLight_EntityFramework.Views.StatisticPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GamesDB_MVVMLight_EntityFramework.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="400"
+      Title="StatisticPage"
+      DataContext="{Binding StatisticPageViewModel, Source={StaticResource Locator}}">
+
+    <StackPanel Background="AliceBlue">
+        <TextBlock
+            Text="Общая статистика за период"
+            FontSize="20"
+            HorizontalAlignment="Center"
+            Margin="0 10 0 0"/>
+        <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock
+                Text="C:"
+                FontSize="18"
+                Margin="0 10 0 10"/>
+            <DatePicker SelectedDate="{Binding FromDate}"
+                        FontSize="18"
+                        Margin="10"/>
+            <TextBlock
+                Text="По:"
+                FontSize="18"
+                Margin="0 10 0 10"/>
+            <DatePicker SelectedDate="{Binding ToDate}" 
+                        FontSize="18"
+                        Margin="10"/>
+            <Button Content="Получить результат"
+                    Command="{Binding GetStatisticInIntervalCommand}"/>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="0 10 0 0">
+                <TextBlock
+                    Text="Абсолютные значения"
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    />
+                <DataGrid
+                      x:Name="MyDataGridLeft"
+                      Margin="0 10 10 0"
+                      ItemsSource="{Binding ObservableAbsolute}" 
+                      ColumnWidth="100"
+                      RowHeight="40"
+                      FontFamily="Comic Sans MS"
+                      FontSize="20"/>
+            </StackPanel >
+            <StackPanel Grid.Column ="1" Margin="0 10 0 0">
+                <TextBlock
+                    Text="Относительные значения"
+                    HorizontalAlignment="Center"
+                    FontSize="20"/>
+                <DataGrid Grid.Column="1"
+                          Margin="10 10 0 0"
+                          x:Name="MyDataGridRight"
+                          ItemsSource="{Binding ObservableRelative}" 
+                          ColumnWidth="100"
+                          RowHeight="40"
+                          FontFamily="Comic Sans MS"
+                          FontSize="20"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Page>

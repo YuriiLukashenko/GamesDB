@@ -38,5 +38,8 @@ namespace GamesDB_MVVMLight_EntityFramework.Model
         void GetNiceData(Action<string, DateTime> callback);
         void SetNiceData(Action<bool> callback, string comment, DateTime dt);
         void LoadNiceData(Action<string, bool> callback, DateTime dt);
+
+        void GetAbsoluteValues(Action<ObservableCollection<AllStatistic_OnView>> callback, DateTime from, DateTime to);
+        void GetRelativeValues(Action<ObservableCollection<AllStatistic_OnView>> callback, DateTime from, DateTime to);
     }
 }
